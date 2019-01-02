@@ -17,10 +17,12 @@ def scan(ip):
 
 	answered_list = scapy.srp(arp_request_broadcast, timeout=1)[0] # scapy send recieve custom method to send the packets, returns two lists (answered_list captures the first with [0]) second would be unanswered requests
 
+	print("-------------------------------------------")
+	print("IP\t\t\tMAC ADDRESS")
+	print("-------------------------------------------")
+
 	for element in answered_list: # accesses all list elements individually
-		print(element[1].psrc)
-		print(element[1].hwsrc)
-		print("--------------------")
+		print(element[1].psrc + '\t\t' + element[1].hwsrc)
 
 
 scan("192.168.1.1/24")

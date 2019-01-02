@@ -15,9 +15,12 @@ def scan(ip):
 
 	arp_request_broadcast = broadcast/arp_request # Combines broadcast and arp_requet packet using Scapy
 
-	answered, unanswered = scapy.srp(arp_request_broadcast, timeout=1) # scapy send recieve custom method to send the packets, captured in answered and unanswered variables
+	answered_list = scapy.srp(arp_request_broadcast, timeout=1)[0] # scapy send recieve custom method to send the packets, returns two lists (answered_list captures the first with [0]) second would be unanswered requests
 
-	print answered.summary()
+	for element in answered_list: # accesses all list elements individually
+		print(element[1].psrc)
+		print(element[1].hwsrc)
+		print("--------------------")
 
 
 scan("192.168.1.1/24")

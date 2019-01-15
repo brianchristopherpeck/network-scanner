@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # ARP requests and responses in specified IP range
 import scapy.all as scapy
+# Optperse allows options in cli
+import optparse
+
+def c_arg():
+	parser = optparse.OptionParser()
+	parser.add_option("-t", "--target", dest="target", help="Target IP / IP range")
+	(options, arguments) = parser.parse_args()
+	return options
 
 def scan(ip):
 	arp_request = scapy.ARP(pdst=ip) # contains an instance of an ARP Packet with pdst(IPField) set to ip
@@ -31,6 +39,6 @@ def print_result(results_list):
 	for client in results_list:
 		print(client["ip"] + "\t\t" + client["mac"])
 
-
-scan_result = scan("192.168.1.1/24")
+options = c_arg()
+scan_result = scan(options.target)
 print_result(scan_result)
